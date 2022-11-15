@@ -77,6 +77,40 @@ Posts.getAll = (title, result) =>   {
 }
 
 Posts.updateById = (id, post, result) =>    {
-    sql.query("UPDATE posts SET userID = ?, image = ?, title = ?, description = ?, published_date = ?",
-    [post.userID, post.image, post.title, post.description, post.published_date], `WHERE id LIKE ${id}`)
+    sql.query("UPDATE posts SET userID = ?, image = ?, title = ?, description = ?, published_date = ? WHERE id = ?",
+    [post.userID, post.image, post.title, post.description, post.published_date, id]),
+    (err, res) =>   {
+        if (err)    {
+            console.log("Error: ", err)
+            result(err, null)
+            return
+        }
+
+        if (res.affectedRows == 0)  {
+            result( {kind: "not_found"}, null )
+        }
+
+        console.log("Post actualizado: ", { id: id, ...post })
+        result(null, { id: id, ...post })
+    }
 }
+
+Posts.remove = (id, result) =>  {
+    sql.query("DELETE FROM posts WHERE id IS ?", id, (err, res) =>  {
+        if (err) {
+            console.log("Error: ", err);
+            result(null, err);
+            return;
+        }
+
+        if (res.affectedRows == 0) {
+            result({ kind: "not_found" }, null);
+            return;
+        }
+
+        console.log("Post borrado con ID: ", id);
+        result(null, res);
+    })
+}
+
+module.exports = Posts
