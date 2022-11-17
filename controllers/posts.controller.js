@@ -7,32 +7,38 @@ exports.create = (req, res) =>  {
         })
     }
 
-
-    const tutorial = new Posts({
+    const posts = new Posts({
         title: req.body.title,
-        description: req.body.description,
-        published: req.body.published || false
+        userID: req.body.userID,
+        image: req.body.image,
+        description: req.body.description || false,
+        published_date: req.body.published_date
     })
 
-    Posts.create(tutorial, (err, data) =>    {
-        if (err)
+    Posts.create(posts, (err, data) =>    {
+        if (err)    {
             res.status(500).send({
                 message:
                     err.message || "❌Error al crear el tutorial."
             })
+        }
         else res.send(data)
     })
 }
 
-exports.findAll = (req, res) => {
-    const title = req.query.title
-
-    Posts.getAll(title, (err, data) =>   {
-        if (err)
-            res.status(500).send({
-                message:
-                    err.message || "❌Error al listar los tutoriales."
-            })
-        else res.send(data)
+exports.findById = (req, res) => {
+    const id = req.params.id
+    Posts.findById(id, (err, data) =>    {
+        if (err)    {
+            if (err.kind === "not_found")  {
+                res.status(404).send({
+                    message: `El post con id ${id} no ha sido encontrado.`
+                })
+            }else    {
+                res.status(500).send({
+                    message: err.message || "❌Error al buscar el post."
+                })
+            }
+        }else res.send(data)
     })
 }

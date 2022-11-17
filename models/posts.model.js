@@ -113,4 +113,16 @@ Posts.remove = (id, result) =>  {
     })
 }
 
+Posts.removeAll = result => {
+    sql.query("DELETE FROM posts", (err, res) =>    {
+        if (err)    {
+            console.log("Error: ", err)
+            result(err, null)
+            return
+        }
+        console.log(log(`Han sido borradas ${res.affectedRows} filas.`))
+        result(null, res)
+    })
+}
+
 module.exports = Posts
