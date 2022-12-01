@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
 
 connection.connect(error => {
     if (error) throw error
-    console.log("Conexión con base de datos satisfactoria.")
+    console.log("✅ Conexión con base de datos satisfactoria.")
 })
 
 module.exports = connection
