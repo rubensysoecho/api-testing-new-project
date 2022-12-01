@@ -22,7 +22,10 @@ exports.create = (req, res) =>  {
                     err.message || "❌Error al crear el tutorial."
             })
         }
-        else res.send(data)
+        else    {
+            res.send(data)
+            console.log("Post creado.")
+        } 
     })
 }
 

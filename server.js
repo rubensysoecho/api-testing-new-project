@@ -12,12 +12,12 @@ app.use(express.json)
 app.use(express.urlencoded({ extended: true }))
 
 app.get("/", (req, res) =>  {
-    res.json({ message: "Bienvenido a la API de Rubén" })
+    res.json({ message: "API connected" })
 })
 
-require("./app/routes/tutorial.routes.js")(app)
+require("./routes/posts.routes.js")(app)
 
-const PORT = process.env.PORT || 8080
-app.listen(PORT =>  {
+const PORT = process.env.PORT || 5500
+app.listen(PORT, () =>  {
     console.log(`Servidor iniciado en el puerto ${PORT}`)
 })
