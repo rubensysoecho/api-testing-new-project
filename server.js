@@ -17,7 +17,7 @@ app.get("/", (req, res) =>  {
 
 require("./routes/posts.routes.js")(app)
 
-const PORT = process.env.PORT || 5500
+const PORT = process.env.PORT || 8081
 app.listen(PORT, () =>  {
     console.log(`Servidor iniciado en el puerto ${PORT}`)
 })
