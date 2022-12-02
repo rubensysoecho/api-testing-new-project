@@ -19,7 +19,7 @@ exports.create = (req, res) =>  {
         if (err)    {
             res.status(500).send({
                 message:
-                    err.message || "❌Error al crear el tutorial."
+                    err.message || "❌ Error al crear el tutorial."
             })
         }
         else    {
@@ -35,11 +35,27 @@ exports.findById = (req, res) => {
         if (err)    {
             if (err.kind === "not_found")  {
                 res.status(404).send({
-                    message: `El post con id ${id} no ha sido encontrado.`
+                    message: `❌ El post con id ${id} no ha sido encontrado.`
                 })
             }else    {
                 res.status(500).send({
-                    message: err.message || "❌Error al buscar el post."
+                    message: err.message || "❌ Error al buscar el post."
+                })
+            }
+        }else res.send(data)
+    })
+}
+
+exports.getAll = (req, res) =>  {
+    Posts.getAll((err, data) => {
+        if (err)    {
+            if (err.kind === "not_found")   {
+                res.status(404).send({
+                    message: "No se han encontrado posts."
+                })
+            }else   {
+                res.status(500).send({
+                    message: err.message || "❌ Error al buscar posts."
                 })
             }
         }else res.send(data)

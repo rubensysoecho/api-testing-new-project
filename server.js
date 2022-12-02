@@ -15,7 +15,7 @@ app.get("/", (req, res) =>  {
     res.json({ message: "API connected" })
 })
 
-require("./routes/posts.js")(app)
+require("./routes/posts.routes.js")(app)
 
 const PORT = process.env.PORT || 8080
 app.listen(PORT, () =>  {

@@ -70,9 +70,9 @@ Posts.getAll = (title, result) =>   {
             result(null, err)
             return
         }
-
         console.log("Posts: ", res)
         result(null, res)
+
     })
 }
 
